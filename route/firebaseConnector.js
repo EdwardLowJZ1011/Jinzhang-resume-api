@@ -32,6 +32,28 @@ router.post('/getProfilePic', async (req, res) => {
 
   });
 
+router.get('/getProfilePic', async (req, res) => {
+
+
+    await firestorage.ref('assets/profiles').listAll()
+    .then(async(items) => {
+      var image_arr = []
+      items.items.forEach(async (itemRef) => {
+        url = await itemRef.getDownloadURL();
+        metaData = await itemRef.getMetadata();
+        metaData['url'] = url;
+        image_arr.push(metaData);
+        if (image_arr.length == items.items.length){
+            res.status(200).json({ success: true, data: image_arr }); 
+        }
+    });
+    }).catch((error) => {
+        console.log(error)
+      // Uh-oh, an error occurred!
+    });
+
+  });
+
 router.post('/getCertTotal', async (req, res) => {
     // console.log(req.body)
     const {lang} = req.body;
