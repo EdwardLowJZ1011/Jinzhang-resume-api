@@ -17,12 +17,12 @@ app.use("/", contactRoute);
 app.use("/api/firebase", firebaseRoute);
 app.use('/api/users', userRoutes)
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("build"));
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "build", "index.html"))
-  );
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("build"));
+//   app.get("*", (req, res) =>
+//     res.sendFile(path.resolve(__dirname, "build", "index.html"))
+//   );
+// }
 
 const port = process.env.PORT || 5050;
 app.listen(port, console.log(`server listing to port 5050 only`));
